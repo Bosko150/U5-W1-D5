@@ -46,7 +46,7 @@ public class MyRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         while (true) {
-            System.out.println("Benvenuto! Identificati per continuare (0 per uscire)");
+            System.out.println("Benvenuto! Identificati per continuare (Inserisci ID utente o 0 per uscire)");
             utenteService.findAllUtenti().forEach(u -> System.out.println(u.toString()));
             String response = scanner.nextLine();
 
