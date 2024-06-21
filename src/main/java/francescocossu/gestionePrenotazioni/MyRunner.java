@@ -10,6 +10,7 @@ import francescocossu.gestionePrenotazioni.services.PostazioneService;
 import francescocossu.gestionePrenotazioni.services.PrenotazioneService;
 import francescocossu.gestionePrenotazioni.services.UtenteService;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +25,7 @@ public class MyRunner implements CommandLineRunner {
 
     Scanner scanner = new Scanner(System.in);
 
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
@@ -51,6 +53,7 @@ public class MyRunner implements CommandLineRunner {
             String response = scanner.nextLine();
 
             if (response.equals("0")) {
+                System.out.println("Arrivederci!");
                 resetDataBase();
                 break;
             }
@@ -59,6 +62,7 @@ public class MyRunner implements CommandLineRunner {
             System.out.println("Cosa vuoi fare?\1. Cerca sale disponibili \0. Esci");
             String response2 = scanner.nextLine();
             if (response2.equals("0")) {
+                System.out.println("Arrivederci!");
                 resetDataBase();
                 break;
             }
@@ -69,6 +73,7 @@ public class MyRunner implements CommandLineRunner {
                 System.out.println("\"Seleziona il tipo di sala che vuoi prenotare:\1. Privata\2. Open space\3. Sala riunioni\0. Esci\"");
                 String response4 = scanner.nextLine();
                 if (response3.equals("0")) {
+                    System.out.println("Arrivederci!");
                     resetDataBase();
                     break;
                 }
