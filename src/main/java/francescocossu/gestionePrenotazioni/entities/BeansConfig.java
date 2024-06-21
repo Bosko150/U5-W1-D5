@@ -8,22 +8,25 @@ import francescocossu.gestionePrenotazioni.services.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@PropertySource("application.properties")
 public class BeansConfig {
+
     @Autowired
     private UtenteService utenteService;
+
     @Autowired
     private EdificioService edificioService;
-    @Autowired
-    private PostazioneService postazioneService;
+
+
     @Autowired
     private PrenotazioneService prenotazioneService;
+
+    @Autowired
+    private PostazioneService postazioneService;
 
     private Faker faker = new Faker();
 
@@ -31,7 +34,7 @@ public class BeansConfig {
     @Bean
     public List<Edificio> edifici() {
         List<Edificio> edifici = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             Edificio edificio = new Edificio(faker.company().name(), faker.address().streetAddress(), faker.pokemon().location());
             edificioService.saveEdificio(edificio);
             edifici.add(edificio);
@@ -56,7 +59,7 @@ public class BeansConfig {
         List<Edificio> edifici = edificioService.findAllEdifici();
 
         for (Edificio edificio : edifici) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 Postazione postazionePrivata = new Postazione("Sala " + faker.color().name(), 5, TipoPostazione.PRIVATO, edificio);
                 Postazione openSpace = new Postazione("Sala " + faker.lorem().word(), 30, TipoPostazione.OPENSPACE, edificio);
                 Postazione salaRiunioni = new Postazione("Sala " + faker.artist().name(), 15, TipoPostazione.SALA_RIUNIONI, edificio);

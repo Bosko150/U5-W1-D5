@@ -5,7 +5,6 @@ import francescocossu.gestionePrenotazioni.entities.Postazione;
 import francescocossu.gestionePrenotazioni.entities.Prenotazione;
 import francescocossu.gestionePrenotazioni.entities.Utente;
 import francescocossu.gestionePrenotazioni.repositories.PrenotazioneRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +12,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Slf4j
 public class PrenotazioneService {
     @Autowired
     private PrenotazioneRepository prenotazioneRepository;
 
     public boolean isLiberaPerData(LocalDate data, Postazione postazione) {
-        return prenotazioneRepository.findByPostazioneAndData(postazione, data) != null;
+        return prenotazioneRepository.findByPostazioneAndData(postazione, data) == null;
     }
 
     public Prenotazione savePrenotazione(Postazione postazione, LocalDate data, Utente utente) {
