@@ -19,6 +19,7 @@ public class Postazione {
     private long id;
     private String descrizione;
     private int numeroPosti;
+    @Enumerated(EnumType.STRING)
     private TipoPostazione tipoPostazione;
     @ManyToOne
     private Edificio edificio;
