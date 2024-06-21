@@ -28,4 +28,14 @@ public class Prenotazione {
         this.postazione = postazione;
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "Prenotazione{" +
+                "id=" + id +
+                ", utente=" + utente +
+                ", postazione=" + postazione +
+                ", data=" + data +
+                '}';
+    }
 }

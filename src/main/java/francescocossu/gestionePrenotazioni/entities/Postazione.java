@@ -32,4 +32,15 @@ public class Postazione {
         this.tipoPostazione = tipoPostazione;
         this.edificio = edificio;
     }
+
+    @Override
+    public String toString() {
+        return "Postazione{" +
+                "id=" + id +
+                ", descrizione='" + descrizione + '\'' +
+                ", numeroPosti=" + numeroPosti +
+                ", tipoPostazione=" + tipoPostazione +
+                ", edificio=" + edificio +
+                '}';
+    }
 }

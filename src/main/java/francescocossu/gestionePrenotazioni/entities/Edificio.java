@@ -28,5 +28,15 @@ public class Edificio {
         this.indirizzo = indirizzo;
         this.citta = citta;
     }
+
+    @Override
+    public String toString() {
+        return "Edificio{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", citta='" + citta + '\'' +
+                '}';
+    }
 }
 

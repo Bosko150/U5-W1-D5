@@ -15,14 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Scanner;
 
 @Component
 @Transactional
 public class MyRunner implements CommandLineRunner {
+
     Scanner scanner = new Scanner(System.in);
+
     private EntityManager entityManager;
+
     @Autowired
     private PostazioneService postazioneService;
 
@@ -43,7 +46,7 @@ public class MyRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         while (true) {
-            System.out.println("Benvenuto! Identificati per continuare (0 per uscire)\\");
+            System.out.println("Benvenuto! Identificati per continuare (0 per uscire)");
             utenteService.findAllUtenti().forEach(u -> System.out.println(u.toString()));
             String response = scanner.nextLine();
 
@@ -53,7 +56,7 @@ public class MyRunner implements CommandLineRunner {
             }
             Utente utenteSelezionato = utenteService.findUtenteById(Long.parseLong(response));
             System.out.println("Hai selezionato: " + utenteSelezionato.toString());
-            System.out.println("Cosa vuoi fare?\\1. Cerca sale disponibili \\0. Esci");
+            System.out.println("Cosa vuoi fare?\1. Cerca sale disponibili \0. Esci");
             String response2 = scanner.nextLine();
             if (response2.equals("0")) {
                 resetDataBase();
@@ -63,7 +66,7 @@ public class MyRunner implements CommandLineRunner {
             if (response2.equals("1")) {
                 System.out.println("Inserisci la città dove vuoi cercare sale disponibili:");
                 String response3 = scanner.nextLine();
-                System.out.println("\"Seleziona il tipo di sala che vuoi prenotare:\\\\1. Privata\\\\2. Open space\\\\3. Sala riunioni\\\\0. Esci\"");
+                System.out.println("\"Seleziona il tipo di sala che vuoi prenotare:\1. Privata\2. Open space\3. Sala riunioni\0. Esci\"");
                 String response4 = scanner.nextLine();
                 if (response3.equals("0")) {
                     resetDataBase();
@@ -75,8 +78,12 @@ public class MyRunner implements CommandLineRunner {
                         postazioneService.cercaPostazioniPerTipoECitta(TipoPostazione.PRIVATO, response3).forEach(System.out::println);
                         System.out.println("Seleziona l'id della sala che vuoi prenotare:");
                         String response5 = scanner.nextLine();
+                        System.out.println("Seleziona la data in cui vuoi prenotare la sala (formato YYYY-MM-DD):");
+                        String response7 = scanner.nextLine();
+
+
                         Postazione postazione = postazioneService.findPostazioneById(Long.parseLong(response5));
-                        Prenotazione prenotazione = prenotazioneService.savePrenotazione(postazione, LocalDate.now(), utenteSelezionato);
+                        Prenotazione prenotazione = prenotazioneService.savePrenotazione(postazione, Date.valueOf(response7).toLocalDate(), utenteSelezionato);
 
                         break;
                     case "2":
@@ -84,22 +91,27 @@ public class MyRunner implements CommandLineRunner {
                         postazioneService.cercaPostazioniPerTipoECitta(TipoPostazione.OPENSPACE, response3).forEach(System.out::println);
                         System.out.println("Seleziona l'id della sala che vuoi prenotare:");
                         String response6 = scanner.nextLine();
+                        System.out.println("Seleziona la data in cui vuoi prenotare la sala (formato YYYY-MM-DD):");
+                        String response8 = scanner.nextLine();
                         Postazione postazione2 = postazioneService.findPostazioneById(Long.parseLong(response6));
-                        Prenotazione prenotazione2 = prenotazioneService.savePrenotazione(postazione2, LocalDate.now(), utenteSelezionato);
+                        Prenotazione prenotazione2 = prenotazioneService.savePrenotazione(postazione2, Date.valueOf(response8).toLocalDate(), utenteSelezionato);
                         break;
                     case "3":
                         System.out.println("Ecco le sale riunioni disponibili:");
                         postazioneService.cercaPostazioniPerTipoECitta(TipoPostazione.SALA_RIUNIONI, response3).forEach(System.out::println);
                         System.out.println("Seleziona l'id della sala che vuoi prenotare:");
-                        String response7 = scanner.nextLine();
-                        Postazione postazione3 = postazioneService.findPostazioneById(Long.parseLong(response7));
-                        Prenotazione prenotazione3 = prenotazioneService.savePrenotazione(postazione3, LocalDate.now(), utenteSelezionato);
+                        String response9 = scanner.nextLine();
+                        System.out.println("Seleziona la data in cui vuoi prenotare la sala (formato YYYY-MM-DD):");
+                        String response10 = scanner.nextLine();
+                        Postazione postazione3 = postazioneService.findPostazioneById(Long.parseLong(response9));
+                        Prenotazione prenotazione3 = prenotazioneService.savePrenotazione(postazione3, Date.valueOf(response10).toLocalDate(), utenteSelezionato);
                         break;
                 }
             }
 
 
         }
+
 
 
         /*Utente utente1 = utenteService.findUtenteById(152L);
